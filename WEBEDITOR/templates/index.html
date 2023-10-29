@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Text Editor</title>
+    <style>
+        body {
+            background-color: #333; /* Dark background color */
+            color: #fff; /* Light text color */
+        }
+        textarea {
+            background-color: #444; /* Slightly lighter background for the text area */
+            color: #fff; /* Light text color */
+        }
+        button {
+            background-color: #555; /* Slightly lighter background for the button */
+            color: #fff; /* Light text color */
+        }
+    </style>
+</head>
+<body>
+    <h1>Online Text Editor</h1>
+    <textarea id="text" rows="10" cols="50">{{ content }}</textarea>
+    <button onclick="saveText()">Save</button>
+    <script>
+        function saveText() {
+            var text = document.getElementById("text").value;
+            fetch('/update_text', {
+                method: 'POST',
+                body: new URLSearchParams({ 'text': text }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Text saved successfully.");
+                } else {
+                    alert("Error saving text.");
+                }
+            });
+        }
+    </script>
+</body>
+</html>

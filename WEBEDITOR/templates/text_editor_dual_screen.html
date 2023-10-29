@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Slap Editor</title>
+    <style>
+        body {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+        }
+
+        .dual-screen-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .screen {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .screen textarea {
+            width: 100%;
+            height: 300px; /* Adjust the height as needed */
+            background-color: #333;
+            color: #fff;
+            border: none;
+        }
+
+        .left-screen {
+            margin-right: 10px; /* Add margin to separate text boxes */
+        }
+
+        .menu-bar {
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .menu-bar button {
+            background-color: #555;
+            color: #fff;
+            padding: 5px 10px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Slap Editor</h1>
+    <div class="menu-bar">
+        <button id="save-button">Save</button>
+        <button id="copy-button">Copy</button>
+        <button id="cut-button">Cut</button>
+        <button id="paste-button">Paste</button>
+    </div>
+    <form method="POST">
+        <div class="dual-screen-container">
+            <div class="screen left-screen">
+                <textarea name="edited_text_left" rows="10" cols="40">{{ edited_text_left }}</textarea>
+            </div>
+            <div class="screen right-screen">
+                <textarea name="edited_text_right" rows="10" cols="40">{{ edited_text_right }}</textarea>
+            </div>
+        </div>
+        <br>
+        <input type="submit" value="Save" id="submit-button">
+    </form>
+    <script>
+        const saveButton = document.getElementById('save-button');
+        const copyButton = document.getElementById('copy-button');
+        const cutButton = document.getElementById('cut-button');
+        const pasteButton = document.getElementById('paste-button');
+
+        saveButton.addEventListener('click', () => {
+            document.getElementById('submit-button').click();
+        });
+
+        copyButton.addEventListener('click', () => {
+            document.querySelector('.left-screen textarea').select();
+            document.execCommand('copy');
+        });
+
+        cutButton.addEventListener('click', () => {
+            document.querySelector('.left-screen textarea').select();
+            document.execCommand('cut');
+        });
+
+        pasteButton.addEventListener('click', () => {
+            document.querySelector('.left-screen textarea').focus();
+            document.execCommand('paste');
+        });
+    </script>
+</body>
+</html>
